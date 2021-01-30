@@ -72,3 +72,13 @@ $ deno install --allow-read --allow-run --allow-write -f --unstable https://deno
 ```sh
 $ denon run --allow-net app.ts 
 ```
+
+## Howto listen ports in use 
+```sh
+$ sudo lsof -i -n -P | grep TCP
+```
+
+## Howto kill application
+```sh
+$ kill -9 <ID PROCESS>
+```
