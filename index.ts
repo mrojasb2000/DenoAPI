@@ -4,6 +4,7 @@ import router from './routes/index.routes.ts'
 const app = new Application();
 
 app.use(router.routes());
+app.use(router.allowedMethods())
 
 const port = 8000
 console.log("Server running on port: ", port)
