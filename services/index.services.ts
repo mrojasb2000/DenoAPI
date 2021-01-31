@@ -56,7 +56,7 @@ export const getUser = (
   }
   response.status = 404;
   response.body = {
-    message: "Data not found",
+    message: "User not found",
   };
   return;
 };
