@@ -12,6 +12,7 @@ router
   .get("/users/:id", userService.getUser)
   .post("/users", userService.createUsers)
   .delete("/users/:id", userService.deleteUsers)
+  .put("/users/:id", userService.updateUsers)
 
 
 export default router

@@ -66,7 +66,7 @@ export const deleteUsers = (
 ) => {
   const userFound = users.find((user) => user.id === params.id);
   if (userFound) {
-    users = users.filter(user => user.id !== userFound.id)
+    users = users.filter((user) => user.id !== userFound.id);
     response.status = 200;
     response.body = {
       message: "User removed successfully",
@@ -80,7 +80,37 @@ export const deleteUsers = (
   };
   return;
 };
-/* 
 
-export const updateUsers = () => {}
-*/
+export const updateUsers = async (
+  { params, request, response }: {
+    params: { id: string };
+    request: Request;
+    response: Response;
+  },
+) => {
+  const userFound = users.find((user) => user.id === params.id);
+
+  if (!userFound || !request.hasBody) {
+    response.status = 404;
+    response.body = {
+      message: !userFound ? "User not found" : "No data provided",
+    };
+    return;
+  }
+
+  const { name } = await request.body().value;
+  const updatedUser = {
+    id: params.id,
+    name: name,
+  };
+
+  users = users.map((user) =>
+    user.id === params.id ? { ...user, ...updatedUser } : user
+  );
+
+  response.status = 200;
+  response.body = {
+    message: "User updated successfully",
+    data: users,
+  };
+};
