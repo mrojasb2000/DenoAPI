@@ -5,7 +5,7 @@ interface User {
   name: string;
 }
 
-const users: User[] = [{
+let users: User[] = [{
   id: v4.generate(),
   name: "Ryan Ray",
 }];
@@ -61,7 +61,26 @@ export const getUser = (
   return;
 };
 
+export const deleteUsers = (
+  { params, response }: { params: { id: string }; response: Response },
+) => {
+  const userFound = users.find((user) => user.id === params.id);
+  if (userFound) {
+    users = users.filter(user => user.id !== userFound.id)
+    response.status = 200;
+    response.body = {
+      message: "User removed successfully",
+      data: users,
+    };
+    return;
+  }
+  response.status = 404;
+  response.body = {
+    message: "User not found",
+  };
+  return;
+};
 /* 
 
 export const updateUsers = () => {}
-export const deleteUsers = () => {} */
+*/

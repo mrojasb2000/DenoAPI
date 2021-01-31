@@ -7,8 +7,11 @@ router.get("/", (ctx) => {
   ctx.response.body = "Welcome to my API";
 })
 
-router.get("/users", userService.getUsers)
-router.get("/users/:id", userService.getUser)
-router.post("/users", userService.createUsers)
+router
+  .get("/users", userService.getUsers)
+  .get("/users/:id", userService.getUser)
+  .post("/users", userService.createUsers)
+  .delete("/users/:id", userService.deleteUsers)
+
 
 export default router
