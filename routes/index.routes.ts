@@ -8,6 +8,7 @@ router.get("/", (ctx) => {
 })
 
 router.get("/users", userService.getUsers)
+router.get("/users/:id", userService.getUser)
 router.post("/users", userService.createUsers)
 
 export default router

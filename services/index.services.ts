@@ -1,4 +1,4 @@
-import { Body, Request, Response } from "https://deno.land/x/oak/mod.ts";
+import { Request, Response } from "https://deno.land/x/oak/mod.ts";
 import { v4 } from "https://deno.land/std@0.85.0/uuid/mod.ts";
 interface User {
   id: string;
@@ -21,7 +21,7 @@ export const createUsers = async (
   { request, response }: { request: Request; response: Response },
 ) => {
   if (!request.hasBody) {
-    response.status = 400;
+    response.status = 404;
     response.body = {
       message: "No data provided",
     };
@@ -42,7 +42,26 @@ export const createUsers = async (
   response.status = 201;
 };
 
-/* export const getUser = () => {}
+export const getUser = (
+  { params, response }: { params: { id: string }; response: Response },
+) => {
+  const userFound = users.find((user) => user.id === params.id);
+  if (userFound) {
+    response.status = 200;
+    response.body = {
+      message: "successful query",
+      data: userFound,
+    };
+    return;
+  }
+  response.status = 404;
+  response.body = {
+    message: "Data not found",
+  };
+  return;
+};
+
+/* 
 
 export const updateUsers = () => {}
 export const deleteUsers = () => {} */
